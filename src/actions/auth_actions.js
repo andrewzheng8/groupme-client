@@ -6,6 +6,7 @@ const ROOT_URL = 'http://localhost:8080/api/v1'
 export function signinUser ({ username, password }) {
   return function (dispatch) {
     // Submit email/password to the server
+    console.log('in sign in auth action', username, password)
     axios.post(`${ROOT_URL}/signin`, { username, password })
       .then(response => {
         // If request is good...
@@ -17,24 +18,29 @@ export function signinUser ({ username, password }) {
         // localStorage.setItem('userId', response.data.user._id)// change
         // dispatch({type: SET_VIEWER, payload: response.data.user})
       })
-      .catch(() => {
+      .catch((error) => {
         // If request is bad...
         // - Show an error to the user
+        console.log('error', error)
         dispatch(authError('Bad Login Info'))
       })
   }
 }
 
-export function signupUser ({ email, password }) {
+export function signupUser ({ username, password }) {
   return function (dispatch) {
-    axios.post(`${ROOT_URL}/signup`, { email, password })
+    console.log(username, password)
+    axios.post(`${ROOT_URL}/signup`, { username, password })
       .then(response => {
         dispatch({ type: AUTH_USER })
         localStorage.setItem('token', response.data.token)
         // localStorage.setItem('userId', response.data.user._id)
         // dispatch({type: SET_VIEWER, payload: response.data.user})// change
       })
-      .catch(response => dispatch(authError(response.data.error)))
+      .catch(response => {
+        console.log('error', response)
+        dispatch(authError(response.data.error))
+      })
   }
 }
 
@@ -60,6 +66,9 @@ export function fetchMessage () {
     })
       .then(response => {
         console.log('in response to auth api')
+        if (response.data.authenticated) {
+          dispatch({ type: AUTH_USER })
+        }
         dispatch({
           type: FETCH_MESSAGE,
           payload: response.data.message

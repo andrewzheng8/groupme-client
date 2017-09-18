@@ -1,11 +1,15 @@
 import React, { Component } from 'react'
-import logo from './logo.svg'
+// import logo from './logo.svg'
 import './App.css'
 import io from 'socket.io-client'
 import {fetchMessage} from './actions/auth_actions'
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
-import {BrowserRouter as Router} from 'react-router-dom'
+import {BrowserRouter as Router, Link, Route} from 'react-router-dom'
+import Header from './Header'
+import SignUp from './authentication/SignUp'
+import SignIn from './authentication/SignIn'
+import SignOut from './authentication/SignOut'
 
 class App extends Component {
 
@@ -18,10 +22,12 @@ class App extends Component {
   render () {
     return (
       <div className='App'>
-        <Router >
-          <div className='App-header'>
-            <img src={logo} className='App-logo' alt='logo' />
-            <h2>Welcome to React</h2>
+        <Router>
+          <div>
+            <Route path='/' component={Header} />
+            <Route exact path='/signup' component={SignUp} />
+            <Route exact path='/signin' component={SignIn} />
+            <Route exact path='/signout' component={SignOut} />
           </div>
         </Router>
       </div>
