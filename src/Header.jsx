@@ -1,19 +1,24 @@
 import React, {Component} from 'react'
-import {Link} from 'react-router-dom'
+import {Link, withRouter, Redirect} from 'react-router-dom'
 import {connect} from 'react-redux'
 
 
 class Header extends Component {
 
+  componentWillMount () {
+    console.log('why wont this render')
+  }
+
   renderLinks = () => {
     if (this.props.auth.authenticated) {
       return (
-        <span>
-          <span>Welcome to GroupMe</span>
-          <span className='auth-links'>
-            <Link to='/signout'><span className='nav-link'>Sign Out</span></Link>
-          </span>
-        </span>
+        <Redirect to='/chats' />
+        // <span>
+        //   <span>Welcome to GroupMe</span>
+        //   <span className='auth-links'>
+        //     <Link to='/signout'><span className='nav-link'>Sign Out</span></Link>
+        //   </span>
+        // </span>
 
       )
     } else {
@@ -30,7 +35,7 @@ class Header extends Component {
   render () {
     return (
       <div className='App-header'>
-        <Link to='/'><span className='nav-link'>Home</span></Link>
+        <Link to='/landing'><span className='nav-link'>Home</span></Link>
         {this.renderLinks()}
       </div>
     )
@@ -45,4 +50,4 @@ function mapStateToProps (state) {
   }
 }
 
-export default connect(mapStateToProps)(Header)
+export default withRouter(connect(mapStateToProps)(Header))

@@ -1,61 +1,44 @@
 import React, { Component } from 'react'
-// import logo from './logo.svg'
+
 import './App.css'
 import io from 'socket.io-client'
+
 import {fetchMessage} from './actions/auth_actions'
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
-import {BrowserRouter as Router, Link, Route} from 'react-router-dom'
+import {Route, withRouter, Switch} from 'react-router-dom'
+
+import RequireAuth from './authentication/RequireAuth'
+
 import Header from './Header'
 import SignUp from './authentication/SignUp'
 import SignIn from './authentication/SignIn'
 import SignOut from './authentication/SignOut'
-import PropTypes from 'prop-types'
-import RequireAuth from './authentication/RequireAuth'
 import MainPage from './main/MainPage'
+import Home from './Home'
 
 class App extends Component {
-
-  // componentWillMount () {
-  //   // console.log("updating signin", nextProps, this.context)
-  //   if (this.props.authenticated) {
-  //     this.context.router.history.push('/chats')
-  //   }
-  // }
-
-  static contextTypes = {
-    router: PropTypes.object
-  }
 
   componentDidMount () {
     var socket = io('http://localhost:8080')
     console.log(socket)
-    console.log(this.props)
+    console.log(this.context)
     this.props.fetchMessage()
-  }
-
-  // componentWillReceiveProps (nextProps) {
-  //   console.log('receivedProps', nextProps)
-  // }
-
-  componentWillUpdate (nextProps) {
-    console.log('in componenent will update', this.context)
-    if (nextProps.authenticated) {
-      this.context.router.history.push('/chats')
-    } else {
-      this.context.router.history.push('/landing')
-    }
-    console.log(nextProps, 'nextProps')
   }
 
   render () {
     return (
       <div className='App'>
-          <Route path='/landing' component={Header} />
-          <Route path='/chats' component={RequireAuth(MainPage)} />
-          <Route exact path='/signup' component={SignUp} />
-          <Route exact path='/signin' component={SignIn} />
-          <Route exact path='/signout' component={SignOut} />
+        <div>
+          <Switch>
+            <Route exact path='/' component={Home} />
+            <Route path='/landing' component={Header} />
+            <Route path='/signup' component={SignUp} />
+            <Route path='/signin' component={SignIn} />
+            <Route path='/signout' component={SignOut} />
+            <Route path='/' component={RequireAuth(MainPage)} />
+          </Switch>
+        </div>
       </div>
     )
   }
@@ -72,4 +55,4 @@ const mapStateToProps = state => {
   return {authenticated: state.auth.authenticated }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(App)
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App))
