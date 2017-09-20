@@ -12,22 +12,22 @@ class SignIn extends Component {
   }
 
   static contextTypes = {
-  router: PropTypes.object
-}
-
-componentWillMount() {
-  // console.log("updating signin", nextProps, this.context)
-  if (this.props.authenticated) {
-    this.context.router.history.push('/')
+    router: PropTypes.object
   }
-}
 
-componentWillUpdate(nextProps) {
-  // console.log("updating signin", nextProps, this.context)
-  if (nextProps.authenticated) {
-    this.context.router.history.push('/')
+  componentWillMount() {
+    // console.log("updating signin", nextProps, this.context)
+    if (this.props.authenticated) {
+      this.context.router.history.push('/chats')
+    }
   }
-}
+
+  componentWillUpdate(nextProps) {
+    // console.log("updating signin", nextProps, this.context)
+    if (nextProps.authenticated) {
+      this.context.router.history.push('/chats')
+    }
+  }
 
   handleChange = (event) => {
     this.setState({

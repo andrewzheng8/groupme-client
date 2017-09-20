@@ -12,15 +12,14 @@ export default function(ComposedComponent) {
 
     componentWillMount() {
       if (!this.props.authenticated) {
-        console.log('auth mount', this.props);
-        this.context.router.history.push('/')
+        this.context.router.history.push('/landing')//go to landing
       }
     }
 
     componentWillUpdate(nextProps) {
       if (!nextProps.authenticated) {
         console.log('auth update', this.props);
-        this.context.router.history.push('/')
+        this.context.router.history.push('/landing')//go to landing
       }
     }
 
