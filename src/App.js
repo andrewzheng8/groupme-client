@@ -45,7 +45,7 @@ class App extends Component {
 }
 
 const mapDispatchToProps = dispatch => {
-  return bindActionCreators(
+  return  bindActionCreators(
     {fetchMessage: fetchMessage},
     dispatch
   )

@@ -1,0 +1,9 @@
+.slide-out-tray {
+  position: absolute;
+  height: 100% ;
+  left: 48px ;
+  bottom: 0;
+  border-right: solid 1px #eaeaea ;
+  width: 320px ;
+
+}

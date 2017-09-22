@@ -1,11 +1,11 @@
 import React, {Component} from 'react'
-import SideBar from '../menu/SideBar'
+import SideBarContainer from '../menu/SideBarContainer'
 
 class MainPage extends Component {
 
   render () {
     return (
-      <SideBar />
+      <SideBarContainer />
     )
   }
 }

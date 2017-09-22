@@ -4,14 +4,14 @@ import {connect} from 'react-redux'
 class ChatMenuHeader extends Component {
 
   render () {
-    return {
+    return (
       <div>
         <span>
           Chats
         </span>
         <span><button>Create Chat</button></span>
       </div>
-    }
+    )
   }
 }
 
