@@ -3,12 +3,16 @@ import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import './SlideOutTray.css'
 import ChatMenu from '../chat/ChatMenu'
+import ContactsMenu from '../contacts/ContactsMenu'
 
 class SlideOutNav extends Component {
 
   renderTrayComponents () {
     if (this.props.menu.activeItem === 'chats') {
       return <ChatMenu />
+    }
+    if (this.props.menu.activeItem === 'contacts') {
+      return <ContactsMenu />
     }
   }
 

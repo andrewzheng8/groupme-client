@@ -16,7 +16,7 @@ export function authReducer (state = {authenticated: false}, action) {
     case FETCH_MESSAGE:
       return { ...state, message: action.payload }
     default:
-    return state
+      return state
   }
 
   // return state

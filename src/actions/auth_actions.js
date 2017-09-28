@@ -5,23 +5,20 @@ const ROOT_URL = 'http://localhost:8080/api/v1'
 
 export function signinUser ({ username, password }) {
   return function (dispatch) {
-    // Submit email/password to the server
-    console.log('in sign in auth action', username, password)
+    // Submit username/password to the server
     axios.post(`${ROOT_URL}/signin`, { username, password })
       .then(response => {
         // If request is good...
         // - Update state to indicate user is authenticated
-        console.log('from server on login', response)
         dispatch({ type: AUTH_USER })
         // - Save the JWT token
         localStorage.setItem('token', response.data.token)
         // localStorage.setItem('userId', response.data.user._id)// change
         // dispatch({type: SET_VIEWER, payload: response.data.user})
       })
-      .catch((error) => {
+      .catch(() => {
         // If request is bad...
         // - Show an error to the user
-        console.log('error', error)
         dispatch(authError('Bad Login Info'))
       })
   }
@@ -38,7 +35,6 @@ export function signupUser ({ username, password }) {
         // dispatch({type: SET_VIEWER, payload: response.data.user})// change
       })
       .catch(response => {
-        console.log('error', response)
         dispatch(authError(response.data.error))
       })
   }
@@ -61,6 +57,7 @@ export function fetchMessage () {
   console.log('in fetch message')
   return function (dispatch) {
     console.log('in fetch dispatch function')
+
     axios.get('http://localhost:8080/', {
       headers: { authorization: localStorage.getItem('token') }
     })

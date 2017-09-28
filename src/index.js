@@ -9,6 +9,7 @@ import thunk from 'redux-thunk'
 import rootReducer from './reducers/index'
 import { composeWithDevTools } from 'redux-devtools-extension'
 import {BrowserRouter as Router} from 'react-router-dom'
+import 'semantic-ui-css/semantic.min.css'
 
 const store = createStore(rootReducer, composeWithDevTools(
   applyMiddleware(thunk)
