@@ -1,6 +1,6 @@
-.add-contact-modal {
+.ui.page.modals.add-contact-modal {
   margin: 15% auto ;
   width: 200px ;
-  height: 200px ;
+  height: 100% ;
   /*width: 400px;*/
 }
